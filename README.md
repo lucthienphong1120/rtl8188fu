@@ -1,84 +1,36 @@
-RTL8188FU driver for Linux kernel 4.15.x ~ 5.18.x (Linux Mint, Ubuntu or Debian Derivatives)
+# rtl8188fu
 
-------------------
+Install wifi driver for Realtek RTL8188FTV (chipset rtl8188fu) for Kali/Parrot
 
-## How to install
+Fixed for enable monitor mode
 
-`sudo apt-get install build-essential git dkms linux-headers-$(uname -r)`
+# Usage
 
-`git clone https://github.com/kelebek333/rtl8188fu`
+```
+sudo apt-get install build-essential git dkms linux-headers-$(uname -r)
 
-`sudo dkms add ./rtl8188fu`
+git clone https://github.com/lucthienphong1120/rtl8188fu
 
-`sudo dkms build rtl8188fu/1.0`
+sudo dkms add ./rtl8188fu
 
-`sudo dkms install rtl8188fu/1.0`
+sudo dkms build rtl8188fu/1.0
 
-`sudo cp ./rtl8188fu/firmware/rtl8188fufw.bin /lib/firmware/rtlwifi/`
+sudo dkms install rtl8188fu/1.0
 
-------------------
+sudo cp ./rtl8188fu/firmware/rtl8188fufw.bin /lib/firmware/rtlwifi/
 
-## Configuration
+sudo reboot
+```
 
-#### Disable Power Management
+## Change logs
 
-Run following commands for disable power management and plugging/replugging issues.
+if you want to enable monitor mode, use my repo
 
-`sudo mkdir -p /etc/modprobe.d/`
+origin original belongs to @kelebek333
 
-`sudo touch /etc/modprobe.d/rtl8188fu.conf`
+```
+lines 40 and 61 need to change from y to n and n to y
+CONFIG_POWER_SAVING = n
+CONFIG_WIFI_MONITOR = y
+```
 
-`echo "options rtl8188fu rtw_power_mgnt=0 rtw_enusbss=0" | sudo tee /etc/modprobe.d/rtl8188fu.conf`
-
-#### Disable MAC Address Spoofing
-
-Run following commands for disabling MAC Address Spoofing (Note: This is not needed on Ubuntu based distributions. MAC Address Spoofing is already disable on Ubuntu base).
-
-`sudo mkdir -p /etc/NetworkManager/conf.d/`
-
-`sudo touch /etc/NetworkManager/conf.d/disable-random-mac.conf`
-
-`echo -e "[device]\nwifi.scan-rand-mac-address=no" | sudo tee /etc/NetworkManager/conf.d/disable-random-mac.conf`
-
-#### Blacklist for kernel 5.15 and 5.16 (No needed for kernel 5.17 and up)
-
-If you are using kernel 5.15 and 5.16, you must create a configuration file with following commands for preventing to conflict rtl8188fu module with built-in r8188eu module.
-
-`echo 'alias usb:v0BDApF179d*dc*dsc*dp*icFFiscFFipFFin* rtl8188fu' | sudo tee /etc/modprobe.d/r8188eu-blacklist.conf`
-
-
-------------------
-
-## How to uninstall
-
-`sudo dkms remove rtl8188fu/1.0 --all`
-
-`sudo rm -f /lib/firmware/rtlwifi/rtl8188fufw.bin`
-
-`sudo rm -f /etc/modprobe.d/rtl8188fu.conf`
-
-
-------------------
-
-## How to install from PPA repository
-
-You can install rtl8188fu driver with following commands from PPA.
-
-for xUbuntu 16.04-18.04-20.04-21.10 / Linux Mint 18.x-19.x-20.x
-
-`sudo add-apt-repository ppa:kelebek333/kablosuz`
-
-`sudo apt-get update`
-
-`sudo apt install rtl8188fu-dkms`
-
-
-You can purge packages with following commands
-
-`sudo apt purge rtl8188fu-dkms`
-
-------------------
-
-## How to install (for ARM devices)
-
-https://github.com/kelebek333/rtl8188fu/tree/arm#how-to-install-for-arm-devices
