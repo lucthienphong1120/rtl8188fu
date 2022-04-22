@@ -4,6 +4,8 @@ Install wifi driver for Realtek RTL8188FTV (chipset rtl8188fu) for Kali/Parrot
 
 Fixed for enable monitor mode
 
+![image](https://user-images.githubusercontent.com/90561566/164728137-e0ecaf67-b1a0-411a-811c-3a6e655b5c0c.png)
+
 # Usage
 
 ```
