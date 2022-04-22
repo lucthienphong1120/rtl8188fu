@@ -31,8 +31,7 @@ if you want to enable monitor mode, use my repo
 origin original belongs to @kelebek333
 
 ```
-lines 40 and 61 need to change from y to n and n to y
-CONFIG_POWER_SAVING = n
-CONFIG_WIFI_MONITOR = y
+CONFIG_POWER_SAVING = n # line 41
+CONFIG_WIFI_MONITOR = y # line 60
 ```
 
